@@ -15,6 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 title: zurg3's blog
 # email: your-email@example.com
+author: zurg3
 description: >- # this means to ignore newlines until "baseurl:"
   Just a simple description.
 baseurl: "/jekyll-blog/" # the subpath of your site, e.g. /blog
