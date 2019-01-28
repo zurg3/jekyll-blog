@@ -67,3 +67,9 @@ $ bundle exec jekyll serve
 ```
 
 ### Now browse to [http://localhost:4000](http://localhost:4000)
+
+### Run this command to update installed gems
+
+```
+bundle update
+```
