@@ -70,5 +70,5 @@ $ bundle exec jekyll serve
 ### Run this command to update installed gems
 
 ```
-bundle update
+$ bundle update
 ```
