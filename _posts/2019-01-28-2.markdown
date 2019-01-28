@@ -3,7 +3,7 @@ layout: post
 title:  "Установка Arch Linux"
 date:   2019-01-28 16:20:00 +0300
 ---
-![Arch Linux](https://i.imgur.com/wIcU1LJ.jpg)
+![Arch Linux](https://i.imgur.com/ykWSVKK.png)
 
 За основу взято [руководство на HTML](https://zurg3.github.io/arch-linux-info/). Это перенесено на Markdown.
 
