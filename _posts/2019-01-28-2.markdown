@@ -1,0 +1,367 @@
+---
+layout: post
+title:  "Установка Arch Linux"
+date:   2019-01-28 16:20:00 +0300
+---
+![Arch Linux](https://i.imgur.com/niWBWRH.png)
+
+За основу взято [руководство на HTML](https://zurg3.github.io/arch-linux-info/). Это перенесено на Markdown.
+
+## 1. Загрузка
+Скачать дистрибутив с официального сайта: [https://www.archlinux.org/download](https://www.archlinux.org/download)
+
+## 2. Перед установкой
+### Установка раскладки клавиатуры
+Выбрать русскую раскладку
+```
+# loadkeys ru
+```
+Выбрать консольный шрифт, поддерживающий кириллицу
+```
+# setfont cyr-sun16
+```
+
+### Соединение с интернетом
+Подключить проводной интернет
+```
+# dhcpcd
+```
+Или Wi-Fi
+```
+# wifi-menu
+```
+
+### Синхронизация системных часов
+```
+# timedatectl set-ntp true
+```
+
+### Разбиение дисков на разделы
+Посмотреть какие диски есть
+```
+# fdisk -l
+```
+Запустить *fdisk* для создания разделов
+```
+# fdisk /dev/sda
+```
+Создать MBR таблицу
+```
+o
+```
+Создание раздела **/boot**
+```
+n - создать новый раздел
+тип раздела (primary (основной) или extented (расширенный)), по умолчанию стоит primary (основной) - нажать enter
+выбор номера диска - нажать enter
+первый сектор раздела - нажать enter
+последний сектор раздела (определяется +объём_памятиM(МБ)/G(ГБ)) - +200M
+```
+Создание **корневого раздела**
+```
+n - создать новый раздел
+тип раздела (primary (основной) или extented (расширенный)), по умолчанию стоит primary (основной) - нажать enter
+выбор номера диска - нажать enter
+первый сектор раздела - нажать enter
+последний сектор раздела (определяется +объём_памятиM(МБ)/G(ГБ)) - +20G
+```
+Создание **раздела подкачки (swap)**
+```
+n - создать новый раздел
+тип раздела (primary (основной) или extented (расширенный)), по умолчанию стоит primary (основной) - нажать enter
+выбор номера диска - нажать enter
+первый сектор раздела - нажать enter
+последний сектор раздела (определяется +объём_памятиM(МБ)/G(ГБ)) - +2G
+```
+Создание раздела **/home**
+```
+n - создать новый раздел
+тип раздела (primary (основной) или extented (расширенный)), в этот раз по умолчанию будет extented (расширенный) - p
+первый сектор раздела - нажать enter
+последний сектор раздела - нажать enter (будет выделено всё оставшееся место)
+```
+Сделать раздел **/boot** загрузочным
+```
+запустить определение загрузочного раздела - a
+выбрать номер диска - 1
+```
+Записать изменения
+```
+w
+```
+Проверить разметку диска
+```
+# fdisk -l
+```
+Пример разметки диска объёмом 50 ГБ
+
+![Disk Partitions](https://i.imgur.com/VJGKU9m.png)
+
+### Форматирование разделов
+```
+# mkfs.ext2 /dev/sda1 -L boot
+```
+```
+# mkfs.ext4 /dev/sda2 -L root
+```
+```
+# mkswap /dev/sda3 -L swap
+```
+```
+# mkfs.ext4 /dev/sda4 -L home
+```
+
+### Монтирование разделов
+Смонтировать файловую систему корневого каталога
+```
+# mount /dev/sda2 /mnt
+```
+Создать директории **boot** и **home** в **/mnt**
+```
+# mkdir /mnt/{boot,home}
+```
+Смонтировать **boot**
+```
+# mount /dev/sda1 /mnt/boot
+```
+Смонтировать **swap**
+```
+# swapon /dev/sda3
+```
+Смонтировать **home**
+```
+# mount /dev/sda4 /mnt/home
+```
+
+## 3. Установка
+### Выбор зеркал
+Настроить зеркала. Поставить зеркало Яндекса выше всех остальных.
+```
+# nano /etc/pacman.d/mirrorlist
+
+Server = http://mirror.yandex.ru/archlinux/$repo/os/$arch
+```
+
+### Установка основных пакетов
+```
+# pacstrap /mnt base base-devel
+```
+
+### Настройка системы
+Сгенерировать файл fstab
+```
+# genfstab -pU /mnt >> /mnt/etc/fstab
+```
+Перейти к корневому каталогу новой системы
+```
+# arch-chroot /mnt
+```
+Прописать имя компьютера
+```
+# nano /etc/hostname
+```
+Настроить часовой пояс для Московского времени
+```
+# ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime
+```
+Настроить локаль. Раскомментировать строки en_US.UTF-8 и ru_RU.UTF-8.
+```
+# nano /etc/locale.gen
+
+en_US.UTF-8 UTF-8
+ru_RU.UTF-8 UTF-8
+```
+Сгенерировать локаль
+```
+# locale-gen
+```
+Указать язык системы
+```
+# nano /etc/locale.conf
+
+LANG=ru_RU.UTF-8
+```
+Указать keymap и шрифт
+```
+# nano /etc/vconsole.conf
+
+KEYMAP=ru
+FONT=cyr-sun16
+```
+Создать загрузочный RAM диск
+```
+# mkinitcpio -p linux
+```
+Изменить пароль суперпользователя
+```
+# passwd
+```
+Обновить базы данных пакетов
+```
+# pacman -Syy
+```
+Установить GRUB
+```
+# pacman -S grub
+```
+Если будет несколько ОС, то нужно установить нижеуказанные пакеты
+```
+# pacman -S os-prober mtools fuse
+```
+Установить загрузчик
+```
+# grub-install /dev/sda
+```
+Обновить grub.cfg
+```
+# grub-mkconfig -o /boot/grub/grub.cfg
+```
+Установить программу для Wi-Fi
+```
+# pacman -S dialog wpa_supplicant
+```
+Выйти из окружения chroot
+```
+# exit
+```
+Размонтировать все разделы
+```
+# umount -R /mnt
+```
+Перезагрузить систему
+```
+# reboot
+```
+
+## 4. После установки
+Войти в систему. Логин - root, пароль - тот, что установили.
+
+Подключить проводной интернет
+```
+# dhcpcd
+```
+Или Wi-Fi
+```
+# wifi-menu
+```
+Создать нового пользователя. Вместо MYUSERNAME вписать имя пользователя.
+```
+# useradd -m -g users -G wheel -s /bin/bash MYUSERNAME
+```
+Установить пароль для нового пользователя. Вместо MYUSERNAME вписать имя пользователя.
+```
+# passwd MYUSERNAME
+```
+Настроить sudo для нового пользователя. Раскомментировать нижеуказанную строку.
+```
+# nano /etc/sudoers
+
+# Uncomment to allow members of group wheel to execute any command
+%wheel ALL=(ALL) ALL
+```
+Добавить репозиторий multilib (только для x86_64). Раскомментировать нижеуказанные строки.
+```
+# nano /etc/pacman.conf
+
+[multilib]
+Include = /etc/pacman.d/mirrorlist
+```
+Обновить базы данных пакетов
+```
+# pacman -Syy
+```
+Установить иксы и драйвера
+```
+# pacman -S xorg-server xorg-drivers xorg-xinit
+```
+Установить гостевые дополнения VirtualBox для корректной работы системы на виртуальной машине (если устанавливаете на виртуальную машину)
+```
+# pacman -S virtualbox-guest-utils
+```
+Установить GNOME, GNOME Tweak Tool и GDM
+```
+# pacman -S gnome gnome-tweak-tool gdm ttf-dejavu
+```
+Если хотите Xfce, то нужно установить это
+```
+# pacman -S xfce4 xfce4-goodies lxdm ttf-dejavu
+```
+
+*Другие DE*
+
+LXDE
+```
+# pacman -S lxde ttf-dejavu
+```
+Cinnamon
+```
+# pacman -S cinnamon gdm ttf-dejavu
+```
+MATE
+```
+# pacman -S mate mate-extra gdm ttf-dejavu
+```
+i3
+```
+# pacman -S i3 dmenu termite compton ttf-font-awesome scrot feh lxappearance lxdm ttf-dejavu
+```
+LXQt
+```
+# pacman -S lxqt lxdm ttf-dejavu
+```
+
+Установить менеджер сети
+```
+# pacman -S networkmanager network-manager-applet ppp
+```
+Включить автозагрузку менеджера входа и интернет (для GNOME/Cinnamon/MATE)
+```
+# systemctl enable gdm NetworkManager
+```
+Включить автозагрузку менеджера входа и интернет (для Xfce/LXDE/i3/LXQt)
+```
+# systemctl enable lxdm NetworkManager
+```
+Перезагрузить систему
+```
+# reboot
+```
+
+## 5. Дополнительные настройки
+### Установка AUR
+Обновить базы данных пакетов
+```
+$ sudo pacman -Syy
+```
+Если в системе не установлен **Git**, то нужно его установить
+```
+$ sudo pacman -S git
+```
+Установить **aurman**
+```
+$ git clone https://aur.archlinux.org/aurman.git
+$ cd aurman
+$ makepkg -si --skippgpcheck
+$ cd ..
+$ rm -rf aurman
+```
+
+### Установка программ из Pacman
+```
+$ sudo pacman -S имя_пакета1 имя_пакета2 ...
+```
+
+### Установка программ из AUR
+```
+$ aurman -S имя_пакета1 имя_пакета2 ...
+```
+
+### Обновление системы
+Обновление всей системы (самого ядра, окружения рабочего стола, программ из pacman и из AUR) производится одной командой через aurman
+```
+$ aurman -Syu
+```
+
+----
+
+*Эта инструкция по установке Arch Linux сделана на основе [инструкции по установке из Arch Wiki](https://wiki.archlinux.org/index.php/Installation_guide_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)) и [чек листа по установке и настройке Arch Linux Xfce от Алексея Бойко](https://docs.google.com/document/d/1IsTwkhYvYde9y3zTD1EscqockzdtdUYcItnAglYfZdU)*
