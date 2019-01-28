@@ -16,7 +16,7 @@ Site was created on January 27, 2019.
 - [My GitHub profile](https://github.com/zurg3)
 - [My IMDb profile](https://www.imdb.com/user/ur83227326/)
 
----
+-----
 
 - [Jekyll](https://jekyllrb.com)
 - [GitHub Pages](https://pages.github.com)
