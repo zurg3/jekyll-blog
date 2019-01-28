@@ -7,20 +7,23 @@ categories: jekyll update
 ## Requirements
 
 - Ruby > 2.2.5
+
 ```
-ruby -v
+$ ruby -v
 ```
 
 - RubyGems
+
 ```
-gem -v
+$ gem -v
 ```
 
 - GCC and Make
+
 ```
-gcc -v
-g++ -v
-make -v
+$ gcc -v
+$ g++ -v
+$ make -v
 ```
 
 ## Jekyll on Ubuntu/Linux Mint
