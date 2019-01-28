@@ -2,7 +2,6 @@
 layout: post
 title:  "Jekyll installation guide"
 date:   2019-01-27 21:45:00 +0300
-categories: jekyll update
 ---
 ## Requirements
 
