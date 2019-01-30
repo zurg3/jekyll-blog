@@ -26,8 +26,9 @@ github_username:  zurg3
 facebook_username: zurg3
 instagram_username: zurg3
 
-# header_pages:
-  # - about.md
+header_pages:
+  - telegram.html
+  - about.md
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this
