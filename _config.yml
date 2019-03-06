@@ -25,6 +25,10 @@ twitter_username: Stepan_Skryabin
 github_username:  zurg3
 facebook_username: zurg3
 instagram_username: zurg3
+youtube_username: zurg3real
+mastodon:
+- username: zurg3
+  instance: mastodon.social
 
 header_pages:
   - telegram.html
