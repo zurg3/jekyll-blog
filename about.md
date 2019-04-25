@@ -1,7 +1,7 @@
 ---
 layout: page
 title: About
-permalink: /about/
+permalink: /about
 ---
 A simple blog powered by Jekyll and GitHub Pages.
 
