@@ -2,6 +2,8 @@
 layout: page
 title: About
 permalink: /about
+redirect_from:
+  - /about/
 ---
 A simple blog powered by Jekyll and GitHub Pages.
 
