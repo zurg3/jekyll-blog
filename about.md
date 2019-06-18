@@ -10,6 +10,8 @@ A simple blog powered by Jekyll and GitHub Pages.
 Created by zurg3 (Stepan Skryabin).
 Site was created on January 27, 2019.
 
+- [The blog's repository](https://github.com/zurg3/jekyll-blog)
+
 -----
 
 - [My VK profile](https://vk.com/zurg3)
