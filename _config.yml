@@ -16,8 +16,6 @@ mastodon:
   instance: mastodon.social
 
 header_pages:
-  - editor.html
-  - telegram.html
   - about.md
 
 # Minima date format
