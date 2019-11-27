@@ -7,8 +7,7 @@ redirect_from:
 ---
 A simple blog powered by Jekyll and GitHub Pages.
 
-Created by zurg3 (Stepan Skryabin).
-Site was created on January 27, 2019.
+Created by zurg3 (Stepan Skryabin) on January 27, 2019.
 
 - [The blog's repository](https://github.com/zurg3/jekyll-blog)
 
