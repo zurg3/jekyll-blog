@@ -1,11 +1,11 @@
 source "https://rubygems.org"
 
-gem "jekyll", "~> 3.8.6"
+gem "jekyll", "~> 4.0.0"
 
-gem "minima", "~> 2.5.0"
+gem "minima", "~> 2.5.1"
 
 group :jekyll_plugins do
-  gem "jekyll-feed", "~> 0.6"
+  gem "jekyll-feed", "~> 0.12"
 end
 
 install_if -> { RUBY_PLATFORM =~ %r!mingw|mswin|java! } do
@@ -13,7 +13,7 @@ install_if -> { RUBY_PLATFORM =~ %r!mingw|mswin|java! } do
   gem "tzinfo-data"
 end
 
-gem "wdm", "~> 0.1.0", :install_if => Gem.win_platform?
+gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
 gem 'jekyll-seo-tag'
 gem 'jekyll-redirect-from'
