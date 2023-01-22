@@ -5,11 +5,9 @@ permalink: /about
 redirect_from:
   - /about/
 ---
-A simple blog powered by Jekyll and GitHub Pages.
+A simple [blog](https://github.com/zurg3/jekyll-blog) powered by [Jekyll](https://jekyllrb.com) and [GitHub Pages](https://pages.github.com).
 
 Created by zurg3 (Stepan Skryabin) on January 27, 2019.
-
-- [The blog's repository](https://github.com/zurg3/jekyll-blog)
 
 -----
 
@@ -20,5 +18,4 @@ Created by zurg3 (Stepan Skryabin) on January 27, 2019.
 
 -----
 
-- [Jekyll](https://jekyllrb.com)
-- [GitHub Pages](https://pages.github.com)
+- [My other social networks](https://linktr.ee/zurg3)
