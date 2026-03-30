@@ -17,4 +17,4 @@ Created by zurg3 (Stepan Skryabin) on January 27, 2019.
 
 -----
 
-- [My other profiles and social networks](https://linktr.ee/zurg3)
+- [My other profiles and social networks](https://zurg3.github.io/links.html)
